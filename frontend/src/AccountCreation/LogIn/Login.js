@@ -41,16 +41,16 @@ const Login = () => {
     axios
       .post('http://localhost:8081/login', values)
       .then((res) => {
-        console.log(res, 'heyaa')
+        console.log(res, 'output came')
         if (res.data.Status === 'Success') {
-          console.log(res, 'res')
+          console.log(res, 'result')
           console.log(res.data.name, 'name')
           localStorage.setItem('User', res.data.name)
 
           navigate('/home')
           localStorage.setItem('LoginKey', true)
         } else {
-          alert('SOmething fishyy')
+          alert('Something fishyy')
         }
       })
       .catch((err) => console.log(err))

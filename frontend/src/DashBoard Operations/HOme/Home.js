@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-// import { useNavigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+
 import axios from 'axios'
 import NavBar from '../../Components/NavBar/NavBar'
 import Carousal from '../../Components/Carousal/Carousal'
@@ -14,15 +14,13 @@ const Home = () => {
   const navigate = useNavigate()
   axios.defaults.withCredentials = true
 
-  // const [auth, setAuth] = useState(false)
+  // fetches token for security purpose
   useEffect(() => {
     axios
-      .get('http://localhost:8081/home')
+      .get(`http://localhost:8081/home`)
       .then((res) => {
         if (res.data.Status === 'Success') {
-          // setAuth(true)
         } else {
-          // setAuth(false)
           alert(res.data.Error)
         }
       })
@@ -90,7 +88,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {/* <FetchData /> */}
+
       <Footer />
     </>
   )

@@ -1,22 +1,27 @@
 const mysql = require('mysql')
 const express = require('express')
 const cors = require('cors')
-
 const bcrypt = require('bcrypt')
-
 const router = express.Router()
+const salt = 10
 
 router.use(express.json())
-// router.use(bcrypt.hash())
-router.use(
-  cors({
-    origin: ['http://localhost:3000'],
-    methods: ['POST', 'GET'],
-    credentials: true,
-  })
-)
-const salt = 5
+// router.use(
+//   cors({
+//     orign: 'http://localhost:3000',
+//     methos: ['POST, GET'],
+//     credentials: true,
+//     optionSuccessStatus: 200,
+//   })
+// )
 
+router.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE'),
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'),
+    next()
+})
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -53,7 +58,10 @@ function db_post(sql) {
 }
 
 db_post(sql)
-  .then((res) => console.log(res))
+  .then((res) => {
+    console.log(res)
+    return res.JSON({ Status: 'SUCCESS' })
+  })
   .catch((err) => console.log(err))
 
 // ######################################################################
@@ -67,10 +75,12 @@ router.get('/', (req, res) => {
     if (error) {
       console.log(error)
     } else {
+      // console.log(result, 'result')
       res.send(result)
+      console.log('givent back to frontend')
+      // res.json(result)
     }
   })
 })
 // ####################################################################################################
-
 module.exports = router

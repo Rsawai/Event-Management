@@ -3,19 +3,21 @@ import { Navbar, Nav, Container } from 'react-bootstrap'
 import { useNavigate, NavLink, Link } from 'react-router-dom'
 import Logo from './eliteLogo.png'
 import './NavBar.css'
+import LogoutIcon from '@mui/icons-material/Logout'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
 const NavBar = () => {
   const navigate = useNavigate()
 
   const user = localStorage.getItem('User')
-  console.log('user is this', user)
+  // console.log('user is this', user)
 
   const handleDelete = () => {
     navigate('/login')
   }
-  // const handleNavigate = () => {
-  //   navigate('/editprofile')
-  // }
+  const handleNavigate = () => {
+    navigate('/editprofile')
+  }
 
   return (
     <>
@@ -27,13 +29,13 @@ const NavBar = () => {
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
           <Navbar.Collapse id='responsive-navbar-nav'>
             <Nav className='mx-auto'>
-              {/* <Navbar.Text
+              <Navbar.Text
                 onClick={() => handleNavigate()}
                 className='mx-2'
                 style={{ cursor: 'pointer' }}
               >
-                Edit Profile
-              </Navbar.Text> */}
+                <AccountCircleIcon /> Edit Profile
+              </Navbar.Text>
               <Navbar.Text className='mx-2' style={{}}>
                 Welcome :<span>{user}</span>
               </Navbar.Text>
@@ -44,7 +46,7 @@ const NavBar = () => {
                 className='btn btn-success rounded '
                 onClick={handleDelete}
               >
-                Logout
+                Logout <LogoutIcon />
               </button>
             </Nav>
           </Navbar.Collapse>

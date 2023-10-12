@@ -29,6 +29,7 @@ function updateFun(editquery) {
       console.log('aal re aal')
       const unique_id = req.params.id
       console.log(unique_id, 'edit')
+      console.log(req.body.id, 'id')
 
       db.query(
         editquery,
@@ -45,7 +46,9 @@ function updateFun(editquery) {
           console.log(result, 'result')
           if (result) {
             console.log('done dona done done')
-            return resolve(result)
+
+            resolve(result)
+            return res.json({ status: 'Success' })
           }
           console.log(err)
           return reject(err)

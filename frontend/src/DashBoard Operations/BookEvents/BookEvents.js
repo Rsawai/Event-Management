@@ -3,10 +3,14 @@ import axios from 'axios'
 import NavBar from '../../Components/NavBar/NavBar'
 import Footer from '../../Components/Footer/Footer'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
+import Input from '../../Components/Input/Input'
+import CloudDoneIcon from '@mui/icons-material/CloudDone'
 
 const BookEvents = () => {
   const navigate = useNavigate()
   const [name, setName] = useState(false)
+  const [duplicate, setDuplicate] = useState(false)
   const [data, setData] = useState({
     id: '',
     eventname: '',
@@ -16,31 +20,51 @@ const BookEvents = () => {
     description: '',
   })
 
+  const textValidate = (input) => {
+    const regex = /^[a-zA-Z\-]+$/
+    if (!regex.test(input)) {
+      toast.error('Only text allowed and avoid spaces')
+    }
+    setName(true)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios
-      .post('http://localhost:8081/bookevent', data)
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => console.log(err))
+
+    if (name && duplicate) {
+      console.log(' request came')
+      axios
+        .post('http://localhost:8081/bookevent', data)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => console.log(err))
+    } else {
+      toast.error('Please enter correct details')
+    }
+    navigate('/event')
   }
   const handleDuplicate = (id) => {
     axios
-      .get(`http://localhost:8081/view/${id}`)
+      .get(`http://localhost:8081/bookevent`)
       .then((res) => {
-        if (res.data[0].id == data.id) {
-          alert('id is duplicate')
-        }
-        console.log(res, 'done')
+        console.log(res, 'res')
+        res.data.map((item) => {
+          if (item.id == data.id) {
+            toast.error('Duplicacy occurred')
+            setDuplicate(false)
+          } else if (item.Date == data.Date) {
+            toast.error('Duplicacy occurred')
+            setDuplicate(false)
+          } else if (item.time == data.time) {
+            toast.error('Duplicacy occurred')
+            setDuplicate(false)
+          } else {
+            setDuplicate(true)
+          }
+        })
       })
       .catch((err) => console.log(err))
-  }
-
-  const submitForm = (e) => {
-    e.preventDefault()
-
-    navigate('/event')
   }
 
   return (
@@ -50,87 +74,94 @@ const BookEvents = () => {
         className='d-flex w-100 justify-content-center align-items-center'
         style={{ maxHeight: '100%', height: '81vh' }}
       >
-        <form onSubmit={() => submitForm()}>
+        <form>
           <div className='mb-2'>
             <label htmlFor='title'>Id:</label>
-            <input
-              type='number'
-              name='id'
-              className='form-control'
-              required
+            <Input
+              type={'number'}
+              name={'id'}
+              className={'form-control'}
               value={data.id}
-              onChange={(d) => setData({ ...data, id: d.target.value })}
-              onBlur={() => handleDuplicate(data.id)}
+              TrackChange={(d) => setData({ ...data, id: d.target.value })}
+              onBlur={() => handleDuplicate()}
+              required
             />
           </div>
 
           <div className='mb-2'>
             <label htmlFor='pages'>Event:</label>
-            <input
-              type='text'
-              name='eventname'
-              className='form-control'
-              required
+            <Input
+              type={'text'}
+              name={'eventname'}
+              className={'form-control'}
               value={data.eventname}
-              onChange={(d) => setData({ ...data, eventname: d.target.value })}
+              TrackChange={(d) =>
+                setData({ ...data, eventname: d.target.value })
+              }
+              onBlur={(e) => textValidate(data.eventname)}
+              required
             />
           </div>
 
           <div className='mb-2'>
             <label htmlFor='author'>Venue:</label>
-            <input
-              type='text'
-              name='venue'
-              className='form-control'
-              required
+            <Input
+              type={'text'}
+              name={'venue'}
+              className={'form-control'}
               value={data.venue}
-              onChange={(d) => setData({ ...data, venue: d.target.value })}
+              TrackChange={(d) => setData({ ...data, venue: d.target.value })}
+              onBlur={(e) => textValidate(data.venue)}
+              required
             />
           </div>
 
           <div className='mb-2'>
             <label htmlFor='category'>Date:</label>
-            <input
-              type='date'
-              name='Date'
-              className='form-control'
+            <Input
+              type={'date'}
+              name={'Date'}
+              className={'form-control'}
               value={data.Date}
+              TrackChange={(d) => setData({ ...data, Date: d.target.value })}
+              onBlur={() => handleDuplicate()}
               required
-              onChange={(d) => setData({ ...data, Date: d.target.value })}
             />
           </div>
           <div className='mb-2'>
             <label htmlFor='category'>Time:</label>
-            <input
-              type='time'
-              name='Date'
-              className='form-control'
+            <Input
+              type={'time'}
+              name={'Date'}
+              className={'form-control'}
               value={data.time}
+              TrackChange={(d) => setData({ ...data, time: d.target.value })}
+              onBlur={(d) => handleDuplicate()}
               required
-              onChange={(d) => setData({ ...data, time: d.target.value })}
             />
           </div>
 
           <div className='mb-2'>
             <label htmlFor='category'>Description:</label>
-            <input
-              type='text'
-              name='description'
-              className='form-control'
-              placeholder='Please Enter Summary'
+            <Input
+              type={'text'}
+              name={'description'}
+              className={'form-control'}
+              placeholder={'Please Enter Summary'}
               required
               value={data.description}
-              onChange={(d) =>
+              TrackChange={(d) =>
                 setData({ ...data, description: d.target.value })
               }
+              onBlur={(e) => textValidate(data.description)}
             />
           </div>
           <button
             type='submit'
-            onClick={(e) => handleSubmit(e)}
+            onClick={(E) => handleSubmit(E)}
             className='btn btn-success'
           >
-            Submit
+            <CloudDoneIcon />
           </button>
           <Link to='/home' className='btn btn-info ms-5'>
             Back
@@ -138,6 +169,7 @@ const BookEvents = () => {
         </form>
       </div>
       <Footer />
+      <ToastContainer />
     </>
   )
 }

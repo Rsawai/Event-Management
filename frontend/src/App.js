@@ -12,12 +12,12 @@ import BookEvents from './DashBoard Operations/BookEvents/BookEvents'
 import FetchData from './DashBoard Operations/FetchData/FetchData'
 import View from './DashBoard Operations/View/View'
 import Edit from './DashBoard Operations/Edit/Edit'
-import Delete from './DashBoard Operations/Delete/Delete'
-import EditProfile from './DashBoard Operations/EditProfile/EditProfile'
 
-// import Form from './Components/Form'
+import EditProfile from './DashBoard Operations/EditProfile/EditProfile'
+import axios from 'axios'
 
 function App() {
+  axios.defaults.withCredentials = true
   return (
     <div>
       <BrowserRouter>
@@ -34,11 +34,9 @@ function App() {
             <Route path='/event' element={<FetchData />} />
             <Route path='/view/:id' element={<View />} />
             <Route path='/edit/:id' element={<Edit />} />
-            <Route path='/delete/:id' element={<Delete />}></Route>
+
             <Route path='/editprofile' element={<EditProfile />}></Route>
           </Route>
-          {/* <Route path='/event' element={<FetchData />} />
-          <Route path='/bookevent' element={<Form />} /> */}
         </Routes>
       </BrowserRouter>
     </div>

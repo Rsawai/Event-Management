@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ClipArt from '../LogIn/ClipArt.jpg'
 
 import Input from '../../Components/Input/Input'
@@ -9,6 +9,7 @@ import axios from 'axios'
 import { toast, ToastContainer } from 'react-toastify'
 
 const Register = () => {
+  // axios.defaults.withCredentials = true
   const navigate = useNavigate()
 
   const [values, setValues] = useState({
@@ -40,16 +41,21 @@ const Register = () => {
   }
 
   const emailVal = (inputs) => {
-    console.log(inputs, 'inp')
-    axios.get('http://localhost:8081/').then((res) =>
-      res.data.map((dsa) => {
-        console.log(dsa.email, 'gdfdkjfn', inputs, dsa.email == inputs)
-        if (dsa.email == inputs) {
-          toast.error('This Email already exists')
-          setEm(false)
-        }
+    axios
+      .get('http://localhost:8081/')
+      .then((res) => {
+        res.data.map((structure) => {
+          console.log(structure.email, 'email')
+
+          if (structure.email == inputs) {
+            toast.error('This Email already exists')
+            setEm(false)
+          }
+        })
       })
-    )
+
+      .catch((err) => console.log(err))
+
     const em_pattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
     if (!em_pattern.test(inputs)) {
@@ -84,8 +90,13 @@ const Register = () => {
   }
 
   // Submit The Form
-  function handleForm(e) {
+  const submitForm = (e) => {
     e.preventDefault()
+    alert(`Welcome, "${values.firstname}" Your Account Has Been Created.`)
+    navigate('/login')
+  }
+
+  function handleForm(e) {
     if (name && em && pass) {
       console.log('data came', values)
       axios
@@ -96,9 +107,6 @@ const Register = () => {
         .catch((error) => {
           console.log('error found')
         })
-
-      alert(`Welcome, "${values.firstname}" Your Account Has Been Created.`)
-      navigate('/login')
     } else {
       toast.error('Please Enter Valid Inputs')
     }
@@ -126,7 +134,10 @@ const Register = () => {
                   <p className='text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4'>
                     Sign Up
                   </p>
-                  <form className='mx-1 mx-md-4' onSubmit={handleForm}>
+                  <form
+                    className='mx-1 mx-md-4'
+                    onSubmit={(e) => submitForm(e)}
+                  >
                     <div className='flex-fill mb-3'>
                       <label className='form-label' htmlFor='First-Name'>
                         Your First Name <span className='text-danger'>*</span>
@@ -200,7 +211,11 @@ const Register = () => {
                     </div>
 
                     <div className='d-flex justify-content-center mx-4 mb-3 mb-lg-4'>
-                      <button type='submit' class='btn btn-primary btn-lg'>
+                      <button
+                        type='submit'
+                        class='btn btn-primary btn-lg'
+                        onClick={handleForm}
+                      >
                         Register
                       </button>
                     </div>

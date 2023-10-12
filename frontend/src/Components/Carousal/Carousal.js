@@ -4,8 +4,6 @@ import Corporate from './Corporate.jpg'
 import Wedding from './Wedding.avif'
 import Carousel from 'react-bootstrap/Carousel'
 
-// import ExampleCarouselImage from 'components/ExampleCarouselImage'
-
 const Carousal = () => {
   return (
     <>

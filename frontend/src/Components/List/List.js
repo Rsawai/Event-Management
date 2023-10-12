@@ -2,18 +2,28 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams, Link, NavLink } from 'react-router-dom'
 import moment from 'moment'
+import { Modal } from 'react-bootstrap'
+import './List.css'
+import HomeIcon from '@mui/icons-material/Home'
+import DeleteIcon from '@mui/icons-material/Delete'
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
+import EditNoteIcon from '@mui/icons-material/EditNote'
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
 
 const List = () => {
   // const { id } = useParams()
   const navigate = useNavigate()
   const [userdata, setUserData] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
+  const [data, setData] = useState([])
+
+  const id = sessionStorage.getItem('deleteId')
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [id])
 
-  // console.log('em', id)
   const fetchData = async () => {
     try {
       const result = await axios('http://localhost:8081/event')
@@ -35,17 +45,25 @@ const List = () => {
   const handleDelete = (id) => {
     alert('Are you sure?')
     sessionStorage.setItem('deleteId', id)
-
-    navigate(`/delete/${id}`)
+    setModalOpen(true)
+    axios
+      .get(`http://localhost:8081/delete/${id}`)
+      .then((res) => setData(res.data[0]))
+      .catch((error) => console.log(error))
   }
-
-  const handleCreate = () => {
-    navigate('/bookevent')
+  const deleteData = () => {
+    axios
+      .delete(`http://localhost:8081/delete/${id}`)
+      .then((res) => {
+        console.log('deleted')
+      })
+      .catch((err) => console.log(err))
+    setModalOpen(!modalOpen)
+    navigate('/home')
   }
 
   return (
     <div className='container'>
-      {/* <h3>User Details</h3> */}
       <table className='table table-bordered'>
         <thead>
           <tr>
@@ -61,7 +79,7 @@ const List = () => {
                 className='ms-3'
                 style={{ textDecoration: 'none' }}
               >
-                🏠
+                <HomeIcon />
               </Link>
             </th>
           </tr>
@@ -81,19 +99,22 @@ const List = () => {
                     onClick={() => handleDelete(user.id)}
                     className='ms-2 btn btn-danger'
                   >
-                    Delete
+                    {/* Delete */}
+                    <DeleteIcon />
                   </button>
                   <button
                     onClick={() => ViewData(user.id)}
                     className='ms-3 btn btn-info'
                   >
-                    View
+                    {/* View */}
+                    <RemoveRedEyeIcon />
                   </button>
                   <button
                     onClick={() => EditData(user.id)}
                     className='ms-3 btn btn-warning'
                   >
-                    Edit
+                    {/* Edit */}
+                    <EditNoteIcon />
                   </button>
                 </td>
               </tr>
@@ -101,6 +122,55 @@ const List = () => {
           })}
         </tbody>
       </table>
+
+      <Modal show={modalOpen} onHide={() => setModalOpen(!modalOpen)}>
+        <Modal.Header closeButton>Your data will be deleted.</Modal.Header>
+        <Modal.Body>
+          <div>
+            <strong>
+              <b>Id :</b>&nbsp;&nbsp; {data.id}
+            </strong>
+          </div>
+          <div className='mb-2'>
+            <strong>
+              <b>Event :</b>
+              &nbsp;&nbsp; {data.eventname}
+            </strong>
+          </div>
+          <div className='mb-2'>
+            <strong>
+              <b>Venue : </b>&nbsp;&nbsp;
+              {data.venue}
+            </strong>
+          </div>
+          <div className='mb-2'>
+            <strong>
+              <b>
+                <CalendarMonthIcon /> :
+              </b>
+              &nbsp;&nbsp;
+              {moment(data.Date).format('YYYY-MM-DD')}
+            </strong>
+          </div>
+          <div className='mb-2'>
+            <strong>
+              <b>
+                <AccessTimeIcon /> :
+              </b>{' '}
+              &nbsp;&nbsp;{data.time}
+            </strong>
+          </div>
+          <div className='mb-5'>
+            <strong>
+              <b>Description : &nbsp;&nbsp;</b>
+              {data.description}
+            </strong>
+          </div>
+          <button className='btn btn-danger' onClick={() => deleteData()}>
+            Delete
+          </button>
+        </Modal.Body>
+      </Modal>
     </div>
   )
 }

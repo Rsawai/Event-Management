@@ -4,13 +4,13 @@ const cors = require('cors')
 const router = express.Router()
 
 router.use(express.json())
-router.use(
-  cors({
-    orign: ['http://localhost:3000'],
-    methos: ['POST'],
-    credentials: true,
-  })
-)
+router.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE'),
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'),
+    next()
+})
 
 const db = mysql.createConnection({
   host: 'localhost',
@@ -34,11 +34,13 @@ function database_execute(sq) {
         req.body.time,
         req.body.description,
       ]
+      console.log(values, 'val')
 
       db.query(sq, [values], function (err, result) {
         if (err) {
           return reject(err)
         }
+        console.log(res)
         return resolve(result)
       })
     })
@@ -52,5 +54,22 @@ database_execute(sq)
   .catch((err) => {
     console.log(err)
   })
+
+const sqlfetch = 'SELECT * FROM `Events`'
+
+router.get('/', (req, res) => {
+  const id = req.params.id
+  console.log(id)
+  db.query(sqlfetch, id, (error, result) => {
+    console.log('came')
+    if (error) {
+      console.log(id)
+      console.log(error, 'error')
+    } else {
+      // console.log(result, 'res')
+      res.send(result)
+    }
+  })
+})
 
 module.exports = router

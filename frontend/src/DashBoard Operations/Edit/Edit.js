@@ -5,87 +5,77 @@ import { Link } from 'react-router-dom'
 import Footer from '../../Components/Footer/Footer'
 import NavBar from '../../Components/NavBar/NavBar'
 import moment from 'moment'
+import BackupIcon from '@mui/icons-material/Backup'
+
+import Input from '../../Components/Input/Input'
+
 const Edit = () => {
   const navigate = useNavigate()
 
   axios.defaults.withCredentials = true
+
   const [data, setData] = useState({
     id: '',
     eventname: '',
     venue: '',
-
     description: '',
 
     Date: '',
     time: '',
   })
-  // const { id } = useParams()
+
   const startDate = moment(data.Date).format('YYYY-MM-DD')
-  console.log(data.Date, 'dateeee', startDate)
+  console.log(data.Date, 'date', startDate, 'changed date')
+  data.Date = startDate
 
   const id = sessionStorage.getItem('editId')
-  console.log(id, 'id')
+
   console.log(data, 'dattaa')
-  console.log(data.id, 'tableid')
 
   useEffect(() => {
-    console.log('aal')
+    console.log('request came')
     axios
       .get(`http://localhost:8081/edit/${id}`)
-      .then((res) =>
-        setData({
-          ...data,
-          id: res.data[0].id,
-          eventname: res.data[0].eventname,
-          venue: res.data[0].venue,
-          Date: res.data[0].Date,
-          time: res.data[0].time,
-          description: res.data[0].description,
-        })
-      )
+      .then((res) => {
+        const getData = res.data[0]
+        setData(getData)
+      })
+      // )    )
       .catch((error) => console.log(error))
   }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('aaya')
+    console.log('submit request came')
 
+    const payload = data
     axios
-      .put(`http://localhost:8081/edit/${id}`, data)
+      .put(`http://localhost:8081/edit/${id}`, payload)
       .then((res) => {
-        console.log(res, 'entered in the territory')
+        console.log(res, 'success')
+        navigate('/event')
       })
-      .catch((error) => console.log(error, 'did entered in the territory'))
-    // navigate('/home')
+      .catch((error) => console.log(error, 'failed'))
   }
 
   return (
     <>
       <NavBar />
       <div className='d-flex vw-100 justify-content-center align-items-center'>
-        <div
-          style={{ maxHeight: '100%', height: '81vh' }}
-
-          // className='d-flex justify-content-center align-items-center'
-          // style={{
-          //   background:
-          //     'linear-gradient(to left, rgba(120, 160, 144, 1), rgba(120, 75, 162, 1))',
-          //   bottom: '10',
-          // }}
-        >
+        <div style={{ maxHeight: '100%', height: '81vh' }}>
           <h1 className=' mb-5'>Edit Your Events</h1>
           <form>
             <div className='mb-2'>
               <label htmlFor='title'>
                 Id: <span style={{ color: 'red' }}> *</span>
               </label>
-              <input
-                type='number'
-                name='id'
-                className='form-control'
+              <Input
+                type={'number'}
+                name={'id'}
+                className={'form-control'}
                 required
                 value={data.id}
-                onChange={(d) => setData({ ...data, id: d.target.value })}
+                TrackChange={(d) => setData({ ...data, id: d.target.value })}
               />
             </div>
 
@@ -93,13 +83,13 @@ const Edit = () => {
               <label htmlFor='pages'>
                 Event: <span style={{ color: 'red' }}> *</span>
               </label>
-              <input
-                type='text'
-                name='eventname'
-                className='form-control'
+              <Input
+                type={'text'}
+                name={'eventname'}
+                className={'form-control'}
                 required
                 value={data.eventname}
-                onChange={(d) =>
+                TrackChange={(d) =>
                   setData({ ...data, eventname: d.target.value })
                 }
               />
@@ -109,13 +99,13 @@ const Edit = () => {
               <label htmlFor='author'>
                 Venue: <span style={{ color: 'red' }}> *</span>
               </label>
-              <input
-                type='text'
-                name='venue'
-                className='form-control'
+              <Input
+                type={'text'}
+                name={'venue'}
+                className={'form-control'}
                 required
                 value={data.venue}
-                onChange={(d) => setData({ ...data, venue: d.target.value })}
+                TrackChange={(d) => setData({ ...data, venue: d.target.value })}
               />
             </div>
 
@@ -123,28 +113,34 @@ const Edit = () => {
               <label htmlFor='category'>
                 Date:<span style={{ color: 'red' }}> *</span>
               </label>
-              <input
-                type='date'
-                name='startDate'
-                className='form-control'
+              <Input
+                type={'date'}
+                name={'startDate'}
+                className={'form-control'}
                 value={startDate}
                 required
-                onChange={(d) => setData({ ...data, Date: d.target.value })}
+                TrackChange={(d) => {
+                  const sDate = moment(d.target.value).format('YYYY-MM-DD')
+                  console.log(sDate, 'sDate')
+                  setData({
+                    ...data,
+                    Date: sDate,
+                  })
+                }}
               />
-              <small>date needs to be selected</small>
             </div>
             <div className='mb-2'>
               <label htmlFor='category'>
                 Time: <span style={{ color: 'red' }}> *</span>
               </label>
-              <input
-                type='time'
-                name='time'
-                className='form-control'
-                placeholder='Please Enter time'
+              <Input
+                type={'time'}
+                name={'time'}
+                className={'form-control'}
+                placeholder={'Please Enter time'}
                 required
                 value={data.time}
-                onChange={(d) => setData({ ...data, time: d.target.value })}
+                TrackChange={(d) => setData({ ...data, time: d.target.value })}
               />
             </div>
 
@@ -152,25 +148,24 @@ const Edit = () => {
               <label htmlFor='category'>
                 Description: <span style={{ color: 'red' }}> *</span>
               </label>
-              <input
-                type='text'
-                name='description'
-                className='form-control'
-                placeholder='Please Enter Summary'
+              <Input
+                type={'text'}
+                name={'description'}
+                className={'form-control'}
+                placeholder={'Please Enter Summary'}
                 required
                 value={data.description}
-                onChange={(d) =>
+                TrackChange={(d) =>
                   setData({ ...data, description: d.target.value })
                 }
               />
             </div>
-            <Link
-              to='/event'
+            <button
               className='btn btn-success'
               onClick={(e) => handleSubmit(e)}
             >
-              Submit
-            </Link>
+              <BackupIcon />
+            </button>
             <Link to='/event' className='btn btn-warning ms-5'>
               Back
             </Link>
