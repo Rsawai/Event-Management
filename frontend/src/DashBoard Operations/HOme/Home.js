@@ -4,7 +4,6 @@ import axios from 'axios'
 import NavBar from '../../Components/NavBar/NavBar'
 import Carousal from '../../Components/Carousal/Carousal'
 import Footer from '../../Components/Footer/Footer'
-import FetchData from '../FetchData/FetchData'
 import Ballons from './bubbles.jpg'
 import Events from './Events.jpg'
 import AboutUs from './Aboutus.jpg'
@@ -33,7 +32,7 @@ const Home = () => {
       <Carousal />
       <div className='d-flex justify-content-center align-items-center row'>
         <div className='card mt-5 mx-5 mb-5 ' style={{ width: '20rem' }}>
-          <img src={Events} alt='Card image cap'></img>
+          <img src={Events} alt='Card'></img>
           <div className='card-body'>
             <h3>Book Your Event</h3>
             <p>
@@ -52,7 +51,7 @@ const Home = () => {
         </div>
 
         <div className='card mt-5 mx-5 mb-5' style={{ width: '20rem' }}>
-          <img src={Ballons} alt='Card image cap'></img>
+          <img src={Ballons} alt='Card'></img>
           <div className='card-body'>
             <h3>Your Events</h3>
             <p>
@@ -70,7 +69,7 @@ const Home = () => {
           </div>
         </div>
         <div className='card mt-5 mx-5 mb-5' style={{ width: '20rem' }}>
-          <img src={AboutUs} alt='Card image cap'></img>
+          <img src={AboutUs} alt='Card'></img>
           <div className='card-body'>
             <h3>About Us</h3>
             <p>

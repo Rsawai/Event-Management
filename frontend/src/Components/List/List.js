@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams, Link, NavLink } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import moment from 'moment'
 import { Modal } from 'react-bootstrap'
 import './List.css'

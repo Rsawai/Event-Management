@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import NavBar from '../../Components/NavBar/NavBar'
 import Footer from '../../Components/Footer/Footer'
@@ -21,7 +21,7 @@ const BookEvents = () => {
   })
 
   const textValidate = (input) => {
-    const regex = /^[a-zA-Z\-]+$/
+    const regex = /^[a-zA-Z-]+$/
     if (!regex.test(input)) {
       toast.error('Only text allowed and avoid spaces')
     }

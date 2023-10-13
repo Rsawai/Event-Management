@@ -42,7 +42,7 @@ const Edit = () => {
       })
       // )    )
       .catch((error) => console.log(error))
-  }, [])
+  }, [id])
 
   const handleSubmit = (e) => {
     e.preventDefault()

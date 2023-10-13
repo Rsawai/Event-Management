@@ -1,8 +1,8 @@
 import React from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
-import { useNavigate, NavLink, Link } from 'react-router-dom'
+import { useNavigate, NavLink } from 'react-router-dom'
 import Logo from './eliteLogo.png'
-import './NavBar.css'
+
 import LogoutIcon from '@mui/icons-material/Logout'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
