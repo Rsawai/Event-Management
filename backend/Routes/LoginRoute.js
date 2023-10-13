@@ -65,12 +65,13 @@ router.post('/login', (req, res) => {
           console.log(data[0].firstname)
           const name = data[0].firstname
           if (result) {
-            // const name = data[0].firstname
+            //  setting token with expiry day
             const token = jwt.sign({ name }, 'secret-key', {
               expiresIn: '1d',
             })
+            // stored that token in cookie
             res.cookie('token', token)
-            // res.send(data[0].firstname)
+
             return res.json({ Status: 'Success', name })
           } else {
             return res.json({ Error: 'Password not match' })

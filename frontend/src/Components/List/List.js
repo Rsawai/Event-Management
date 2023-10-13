@@ -22,7 +22,7 @@ const List = () => {
   // displaying the list of events#################################################
   useEffect(() => {
     fetchData()
-  }, [id])
+  }, [])
 
   const fetchData = async () => {
     try {

@@ -6,7 +6,6 @@ import Register from './AccountCreation/Register/Register'
 import Home from './DashBoard Operations/HOme/Home'
 import ProtectedRoute from './Components/ProtectedRoute'
 import About from './DashBoard Operations/AboutUs/ABout'
-import UpcomingEvents from './DashBoard Operations/UpcomingEvents/UpcomingEvents'
 import BookEvents from './DashBoard Operations/BookEvents/BookEvents'
 import FetchData from './DashBoard Operations/FetchData/FetchData'
 import View from './DashBoard Operations/View/View'
@@ -27,7 +26,7 @@ function App() {
             <Route exact path='/home' element={<Home />} />
 
             <Route path='/about' element={<About />}></Route>
-            <Route path='/upcomingevent' element={<UpcomingEvents />}></Route>
+
             <Route path='/bookevent' element={<BookEvents />}></Route>
             <Route path='/event' element={<FetchData />} />
             <Route path='/view/:id' element={<View />} />
