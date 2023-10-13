@@ -31,11 +31,14 @@ const Login = () => {
   const takeEmail = values.email
   const takepass = values.password
 
+  // saving data in values object#########################################
+
   const SaveDetails = (item) => {
     setValues({ ...values, [item.target.name]: item.target.value })
     console.log('data saved')
   }
 
+  // validating the email and password from database#####################################
   function handleForm(e) {
     e.preventDefault()
     axios

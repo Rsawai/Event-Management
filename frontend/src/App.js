@@ -5,7 +5,6 @@ import Login from './AccountCreation/LogIn/Login'
 import Register from './AccountCreation/Register/Register'
 import Home from './DashBoard Operations/HOme/Home'
 import ProtectedRoute from './Components/ProtectedRoute'
-import NavBar from './Components/NavBar/NavBar'
 import About from './DashBoard Operations/AboutUs/ABout'
 import UpcomingEvents from './DashBoard Operations/UpcomingEvents/UpcomingEvents'
 import BookEvents from './DashBoard Operations/BookEvents/BookEvents'
@@ -27,7 +26,6 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route exact path='/home' element={<Home />} />
 
-            <Route path='/nav' element={<NavBar />}></Route>
             <Route path='/about' element={<About />}></Route>
             <Route path='/upcomingevent' element={<UpcomingEvents />}></Route>
             <Route path='/bookevent' element={<BookEvents />}></Route>

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-
 import axios from 'axios'
 import NavBar from '../../Components/NavBar/NavBar'
 import Carousal from '../../Components/Carousal/Carousal'

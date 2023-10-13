@@ -9,6 +9,7 @@ const Input = ({
   TrackChange,
   className,
   onBlur,
+  maxLength,
 }) => {
   return (
     <>
@@ -21,6 +22,7 @@ const Input = ({
           placeholder={placeholder}
           onChange={TrackChange}
           onBlur={onBlur}
+          maxLength={maxLength}
           required
         />
       </div>

@@ -9,7 +9,6 @@ import axios from 'axios'
 import { toast, ToastContainer } from 'react-toastify'
 
 const Register = () => {
-  // axios.defaults.withCredentials = true
   const navigate = useNavigate()
 
   const [values, setValues] = useState({
@@ -22,13 +21,14 @@ const Register = () => {
   const [em, setEm] = useState(false)
   const [pass, setPass] = useState(false)
 
-  // Saving Data
+  // Saving Data in value object################################################################
   const SaveDetails = (item) => {
     setValues({ ...values, [item.target.name]: item.target.value })
     console.log('data saved')
   }
 
-  // Validation purpose
+  // Name Validation purpose#####################################################
+
   const NameVal = (inputs) => {
     const name_pattern = /\b([A-Z][a-z]+)/
     if (!name_pattern.test(inputs)) {
@@ -39,6 +39,8 @@ const Register = () => {
       setName(true)
     }
   }
+
+  // email validation purpose##############################################################
 
   const emailVal = (inputs) => {
     axios
@@ -65,6 +67,8 @@ const Register = () => {
     }
   }
 
+  // password validation purpose##########################################################
+
   const PassVal = (inputs) => {
     const pass_pattern =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&$])(?=.{8,})/
@@ -76,7 +80,8 @@ const Register = () => {
     }
   }
 
-  // Password hidden feature
+  // Password hidden feature################################################################
+
   const [type, setType] = useState(true)
   const [icon, setIcon] = useState(<NoEncryptionSharpIcon />)
   const handleToggle = () => {
@@ -89,12 +94,14 @@ const Register = () => {
     }
   }
 
-  // Submit The Form
+  // Submit The Form#####################################################################
   const submitForm = (e) => {
     e.preventDefault()
     alert(`Welcome, "${values.firstname}" Your Account Has Been Created.`)
     navigate('/login')
   }
+
+  // post the details into the database#################################################
 
   function handleForm(e) {
     if (name && em && pass) {

@@ -15,6 +15,7 @@ const View = () => {
 
   const id = sessionStorage.getItem('viewId')
 
+  // fetching the data to view #########################################################
   useEffect(() => {
     axios
       .get(`http://localhost:8081/view/${id}`)

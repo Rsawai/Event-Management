@@ -12,7 +12,6 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 
 const List = () => {
-  // const { id } = useParams()
   const navigate = useNavigate()
   const [userdata, setUserData] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
@@ -20,6 +19,7 @@ const List = () => {
 
   const id = sessionStorage.getItem('deleteId')
 
+  // displaying the list of events#################################################
   useEffect(() => {
     fetchData()
   }, [id])
@@ -34,14 +34,19 @@ const List = () => {
     }
   }
 
+  // view button############################################################
   const ViewData = (id) => {
     sessionStorage.setItem('viewId', id)
     navigate(`/view/${id}`)
   }
+
+  // Edit button############################################################
   const EditData = (id2) => {
     sessionStorage.setItem('editId', id2)
     navigate(`/edit/${id2}`)
   }
+
+  // delete button#######################################################
   const handleDelete = (id) => {
     alert('Are you sure?')
     sessionStorage.setItem('deleteId', id)
@@ -51,6 +56,8 @@ const List = () => {
       .then((res) => setData(res.data[0]))
       .catch((error) => console.log(error))
   }
+
+  // sending delete request to databse######################################
   const deleteData = () => {
     axios
       .delete(`http://localhost:8081/delete/${id}`)
@@ -64,6 +71,7 @@ const List = () => {
 
   return (
     <div className='container'>
+      {/* displayed the list of events################################################# */}
       <table className='table table-bordered'>
         <thead>
           <tr>
@@ -122,7 +130,9 @@ const List = () => {
           })}
         </tbody>
       </table>
+      {/* ######################################################################################################### */}
 
+      {/* Delete Modal########################################################################## */}
       <Modal show={modalOpen} onHide={() => setModalOpen(!modalOpen)}>
         <Modal.Header closeButton>Your data will be deleted.</Modal.Header>
         <Modal.Body>

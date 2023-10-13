@@ -12,7 +12,6 @@ const FetchData = () => {
           Event Details
         </h2>
         <div className='row'>
-          {/* <div className='col-md-8'>List of data</div> */}
           <List />
         </div>
       </div>

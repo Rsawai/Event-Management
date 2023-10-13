@@ -2,6 +2,7 @@
   display: grid;
 }
 
+// first div############################################################
 .Image {
   display: flex;
   position: relative;
@@ -9,8 +10,6 @@
 }
 
 .paragraphDiv {
-  // display: inline-block;
-
   position: absolute;
   z-index: 1;
   left: 15%;
@@ -20,6 +19,7 @@
   box-shadow: 1px 1px 5px 1px #060606;
 }
 
+// second Div#####################################################
 #Right {
   position: relative;
 
@@ -28,8 +28,6 @@
 }
 
 .paragraphDivRight {
-  // display: inline-block;
-
   position: absolute;
   z-index: 1;
   left: 35%;
@@ -39,22 +37,27 @@
   box-shadow: 1px 1px 5px 1px #060606;
 }
 
+// fourth div###########################################################
 #Left {
   position: relative;
 
   text-align: right;
   right: 5%;
+  bottom: 2%;
 }
+
 .paragraphDivLeft {
   position: absolute;
   z-index: 1;
   left: 35%;
   top: 104%;
+  margin-bottom: 2%;
   background-color: white;
   padding: 25px;
   box-shadow: 1px 1px 5px 1px #060606;
 }
 
+// third Div#######################################################################
 .imageBottom {
   display: flex;
   position: relative;

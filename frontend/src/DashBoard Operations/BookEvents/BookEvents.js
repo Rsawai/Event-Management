@@ -20,14 +20,16 @@ const BookEvents = () => {
     description: '',
   })
 
+  // text validation#######################################################
   const textValidate = (input) => {
     const regex = /^[a-zA-Z-]+$/
     if (!regex.test(input)) {
-      toast.error('Only text allowed and avoid spaces')
+      toast.error('Only text allowed')
     }
     setName(true)
   }
 
+  // posting the events data into the database################################################3
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -44,6 +46,8 @@ const BookEvents = () => {
     }
     navigate('/event')
   }
+
+  // fetching data for validation#################################################
   const handleDuplicate = (id) => {
     axios
       .get(`http://localhost:8081/bookevent`)
@@ -95,10 +99,11 @@ const BookEvents = () => {
               name={'eventname'}
               className={'form-control'}
               value={data.eventname}
-              TrackChange={(d) =>
+              TrackChange={(d) => {
                 setData({ ...data, eventname: d.target.value })
-              }
+              }}
               onBlur={(e) => textValidate(data.eventname)}
+              maxLength={12}
               required
             />
           </div>
@@ -112,6 +117,7 @@ const BookEvents = () => {
               value={data.venue}
               TrackChange={(d) => setData({ ...data, venue: d.target.value })}
               onBlur={(e) => textValidate(data.venue)}
+              maxLength={12}
               required
             />
           </div>
@@ -154,6 +160,7 @@ const BookEvents = () => {
                 setData({ ...data, description: d.target.value })
               }
               onBlur={(e) => textValidate(data.description)}
+              maxLength={15}
             />
           </div>
           <button

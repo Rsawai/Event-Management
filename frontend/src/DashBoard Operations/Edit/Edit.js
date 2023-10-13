@@ -24,6 +24,7 @@ const Edit = () => {
     time: '',
   })
 
+  // date formatting###############################################################
   const startDate = moment(data.Date).format('YYYY-MM-DD')
   console.log(data.Date, 'date', startDate, 'changed date')
   data.Date = startDate
@@ -32,6 +33,7 @@ const Edit = () => {
 
   console.log(data, 'dattaa')
 
+  // fetching the data from database to edit########################################################
   useEffect(() => {
     console.log('request came')
     axios
@@ -44,6 +46,7 @@ const Edit = () => {
       .catch((error) => console.log(error))
   }, [id])
 
+  // putting the edited data in the database#################################################
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('submit request came')
@@ -92,6 +95,7 @@ const Edit = () => {
                 TrackChange={(d) =>
                   setData({ ...data, eventname: d.target.value })
                 }
+                maxLength={12}
               />
             </div>
 
@@ -106,6 +110,7 @@ const Edit = () => {
                 required
                 value={data.venue}
                 TrackChange={(d) => setData({ ...data, venue: d.target.value })}
+                maxLength={12}
               />
             </div>
 
@@ -158,6 +163,7 @@ const Edit = () => {
                 TrackChange={(d) =>
                   setData({ ...data, description: d.target.value })
                 }
+                maxLength={15}
               />
             </div>
             <button

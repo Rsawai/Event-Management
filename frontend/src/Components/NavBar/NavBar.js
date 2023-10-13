@@ -13,6 +13,7 @@ const NavBar = () => {
   // console.log('user is this', user)
 
   const handleDelete = () => {
+    localStorage.setItem('LoginKey', false)
     navigate('/login')
   }
   const handleNavigate = () => {
