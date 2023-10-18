@@ -116,12 +116,12 @@ const View = () => {
         </div>
         <div className='d-flex justify-content-center mt-5'>
           <button
-            className='btn btn-warning'
+            className='btn btn-outline-info'
             onClick={() => handleEdit(data.id)}
           >
             <BorderColorIcon />
           </button>
-          <Link to='/event' className='btn btn-info ms-5'>
+          <Link to='/event' className='btn btn-outline-dark ms-5'>
             Back
           </Link>
         </div>

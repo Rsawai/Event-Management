@@ -10,6 +10,7 @@ const NavBar = () => {
   const navigate = useNavigate()
 
   const user = localStorage.getItem('User')
+  const email = localStorage.getItem('EmailKey')
   // console.log('user is this', user)
 
   const handleDelete = () => {
@@ -17,7 +18,7 @@ const NavBar = () => {
     navigate('/login')
   }
   const handleNavigate = () => {
-    navigate('/editprofile')
+    navigate(`/editprofile/${email}`)
   }
 
   return (
@@ -44,7 +45,7 @@ const NavBar = () => {
             <Nav></Nav>
             <Nav>
               <button
-                className='btn btn-success rounded '
+                className='btn btn-outline-dark rounded '
                 onClick={handleDelete}
               >
                 Logout <LogoutIcon />

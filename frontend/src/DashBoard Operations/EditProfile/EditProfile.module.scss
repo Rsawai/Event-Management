@@ -1,0 +1,32 @@
+.mainDiv {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.First {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+}
+.Last {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+}
+.Email {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+}
+.Pass {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+}
+.Buttons {
+  position: absolute;
+  top: 120%;
+  left: 40%;
+  margin-top: 15px;
+}

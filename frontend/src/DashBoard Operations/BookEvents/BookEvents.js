@@ -166,11 +166,11 @@ const BookEvents = () => {
           <button
             type='submit'
             onClick={(E) => handleSubmit(E)}
-            className='btn btn-success'
+            className='btn btn-outline-info'
           >
             <CloudDoneIcon />
           </button>
-          <Link to='/home' className='btn btn-info ms-5'>
+          <Link to='/home' className='btn btn-dark ms-5'>
             Back
           </Link>
         </form>

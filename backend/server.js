@@ -13,7 +13,7 @@ app.use(
   cors({
     origin: ['http://localhost:3000'],
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   })
 )
 app.use(cookieParser())
@@ -28,6 +28,7 @@ const Delete = require('./Routes/DeleteRoute')
 const Add = require('./Routes/AddRoute')
 const Reg = require('./Routes/RegisterRoute')
 const Login = require('./Routes/LoginRoute')
+const EditProfile = require('./Routes/EditProfileRoute')
 
 // ####################################################################################
 
@@ -38,6 +39,7 @@ app.use('/', Delete)
 app.use('/bookevent', Add)
 app.use('/', Login)
 app.use('/', Reg)
+app.use('/', EditProfile)
 
 const db = mysql.createConnection({
   host: 'localhost',

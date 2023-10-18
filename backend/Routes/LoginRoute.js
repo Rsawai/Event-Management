@@ -26,6 +26,7 @@ const verification = (req, res, next) => {
         return res.json({ Error: 'no token' })
       } else {
         req.name = decoded.name
+        req.email = decoded.email
         next()
       }
     })
@@ -55,8 +56,8 @@ router.post('/login', (req, res) => {
     }
     console.log(data, 'data')
     if (data.length > 0) {
-      console.log(req.body.password.toString())
-      console.log(data[0].password)
+      console.log(req.body.password.toString(), 'req')
+      console.log(data[0].password, 'pass')
 
       bcrypt.compare(
         req.body.password.toString(),
@@ -64,15 +65,16 @@ router.post('/login', (req, res) => {
         (err, result) => {
           console.log(data[0].firstname)
           const name = data[0].firstname
+          const email = data[0].email
           if (result) {
             //  setting token with expiry day
-            const token = jwt.sign({ name }, 'secret-key', {
+            const token = jwt.sign({ name, email }, 'secret-key', {
               expiresIn: '1d',
             })
             // stored that token in cookie
             res.cookie('token', token)
 
-            return res.json({ Status: 'Success', name })
+            return res.json({ Status: 'Success', name, email })
           } else {
             return res.json({ Error: 'Password not match' })
           }

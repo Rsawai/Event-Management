@@ -10,6 +10,7 @@ const Input = ({
   className,
   onBlur,
   maxLength,
+  disabled,
 }) => {
   return (
     <>
@@ -24,6 +25,7 @@ const Input = ({
           onBlur={onBlur}
           maxLength={maxLength}
           required
+          disabled={disabled}
         />
       </div>
     </>

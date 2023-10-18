@@ -105,21 +105,21 @@ const List = () => {
                 <td>
                   <button
                     onClick={() => handleDelete(user.id)}
-                    className='ms-2 btn btn-danger'
+                    className='ms-2 btn btn-outline-danger'
                   >
                     {/* Delete */}
                     <DeleteIcon />
                   </button>
                   <button
                     onClick={() => ViewData(user.id)}
-                    className='ms-3 btn btn-info'
+                    className='ms-3 btn btn-outline-info'
                   >
                     {/* View */}
                     <RemoveRedEyeIcon />
                   </button>
                   <button
                     onClick={() => EditData(user.id)}
-                    className='ms-3 btn btn-warning'
+                    className='ms-3 btn btn-outline-warning'
                   >
                     {/* Edit */}
                     <EditNoteIcon />

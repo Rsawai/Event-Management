@@ -49,6 +49,7 @@ const Login = () => {
           console.log(res, 'result')
           console.log(res.data.name, 'name')
           localStorage.setItem('User', res.data.name)
+          localStorage.setItem('EmailKey', res.data.email)
 
           navigate('/home')
           localStorage.setItem('LoginKey', true)

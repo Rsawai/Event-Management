@@ -32,7 +32,7 @@ function App() {
             <Route path='/view/:id' element={<View />} />
             <Route path='/edit/:id' element={<Edit />} />
 
-            <Route path='/editprofile' element={<EditProfile />}></Route>
+            <Route path='/editprofile/:email' element={<EditProfile />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

@@ -167,12 +167,12 @@ const Edit = () => {
               />
             </div>
             <button
-              className='btn btn-success'
+              className='btn btn-outline-info'
               onClick={(e) => handleSubmit(e)}
             >
               <BackupIcon />
             </button>
-            <Link to='/event' className='btn btn-warning ms-5'>
+            <Link to='/event' className='btn btn-outline-dark ms-5'>
               Back
             </Link>
           </form>
