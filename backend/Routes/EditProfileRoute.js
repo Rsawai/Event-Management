@@ -63,35 +63,26 @@ router.get('/editprofile/:email', (req, res) => {
 })
 
 const patchQuery =
-  'UPDATE `UserInfo` SET `firstname`= ?,`lastname`=? ,`email`=?,`password`=? WHERE `email`=?'
+  'UPDATE `UserInfo` SET `firstname`= ?,`lastname`=? ,`email`=? WHERE `email`=?'
 
 function db_post(patchQuery) {
   return new Promise((resolve, reject) => {
     router.patch('/editprofile/:email', (req, res) => {
       console.log('request came')
       const unique_email = req.params.email
-      bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
-        if (err) return res.json({ Error: 'error in password hashing' })
 
-        db.query(
-          patchQuery,
-          [
-            req.body.firstname,
-            req.body.lastname,
-            req.body.email,
-            hash,
-            unique_email,
-          ],
-          function (err, result) {
-            if (err) {
-              return reject(err)
-            }
-            resolve(result)
-            console.log('success')
-            return res.json({ Status: 'SUCCESS' })
+      db.query(
+        patchQuery,
+        [req.body.firstname, req.body.lastname, req.body.email, unique_email],
+        function (err, result) {
+          if (err) {
+            return reject(err)
           }
-        )
-      })
+          resolve(result)
+          console.log('success')
+          return res.json({ Status: 'SUCCESS' })
+        }
+      )
     })
   })
 }

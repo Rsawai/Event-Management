@@ -40,6 +40,7 @@ const View = () => {
   }
 
   const handleEdit = (id) => {
+    sessionStorage.setItem('editId', id)
     navigate(`/edit/${id}`)
   }
 

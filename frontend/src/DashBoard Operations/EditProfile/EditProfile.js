@@ -18,7 +18,6 @@ const EditProfile = () => {
     firstname: '',
     lastname: '',
     email: '',
-    password: '',
   })
   const [ok, setOk] = useState()
 
@@ -37,6 +36,7 @@ const EditProfile = () => {
   }
 
   const submitDetails = () => {
+    alert('You will be logged out,please log in again...')
     const payload = values
     console.log(payload, 'payload')
     console.log('came')
@@ -81,12 +81,7 @@ const EditProfile = () => {
             <b>Email-Id :</b>&nbsp;&nbsp; {values.email}&nbsp;&nbsp;
           </strong>
         </div>
-        <div className={styles.Pass}>
-          <strong>
-            <b>Password :</b>&nbsp;&nbsp;
-            <span>{'********'}</span>&nbsp;&nbsp;
-          </strong>
-        </div>
+
         <div className={styles.Buttons}>
           <Link onClick={() => setShowModal(true)} className='mx-5'>
             <ModeEditIcon />
@@ -150,20 +145,6 @@ const EditProfile = () => {
                 value={values.email}
                 TrackChange={(d) =>
                   setValues({ ...values, email: d.target.value })
-                }
-                disabled={ok}
-              />
-            </div>
-            <div className='mb-2'>
-              <label htmlFor='author'>Password:</label>
-              <Input
-                type={'password'}
-                name={'venue'}
-                className={'form-control'}
-                required
-                value={values.password}
-                TrackChange={(d) =>
-                  setValues({ ...values, password: d.target.value })
                 }
                 disabled={ok}
               />

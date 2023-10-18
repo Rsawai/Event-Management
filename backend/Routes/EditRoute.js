@@ -1,7 +1,7 @@
 const mysql = require('mysql')
 const cors = require('cors')
 const express = require('express')
-const router = express.Router()
+const router = express.Router({ mergeParams: true })
 
 router.use(express.json())
 router.use(
@@ -26,7 +26,6 @@ const editquery =
 function updateFun(editquery) {
   return new Promise((resolve, reject) => {
     router.put(`/edit/:id`, (req, res) => {
-      console.log('aal re aal')
       const unique_id = req.params.id
       console.log(unique_id, 'edit')
       console.log(req.body.id, 'id')
@@ -69,8 +68,10 @@ updateFun(editquery)
 const sqlfetch = 'SELECT * FROM `Events` WHERE `id`=?'
 
 router.get('/edit/:id', (req, res) => {
+  console.log('found')
+  console.log(req.params.query, 'req')
   const id = req.params.id
-  console.log(id)
+  console.log(id, 'id')
   db.query(sqlfetch, id, (error, result) => {
     if (error) {
       console.log(id)

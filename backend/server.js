@@ -5,7 +5,7 @@ const express = require('express')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const cookieParser = require('cookie-parser')
-const app = express()
+const app = express({ mergeParams: true })
 
 app.use(express.json())
 
