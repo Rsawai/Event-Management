@@ -16,6 +16,8 @@ const List = () => {
   const [userdata, setUserData] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const postPerPage = 5
 
   const id = sessionStorage.getItem('deleteId')
 
@@ -69,6 +71,31 @@ const List = () => {
     navigate('/home')
   }
 
+  const lastPage = currentPage * postPerPage
+  const firstPage = lastPage - postPerPage
+  const currentData = userdata.slice(firstPage, lastPage)
+  const npage = Math.ceil(userdata.length / postPerPage)
+  const number = [...Array(npage).keys()].map((n) => n + 1)
+
+  const prePage = (e) => {
+    e.preventDefault()
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
+
+  const nextPage = (e) => {
+    e.preventDefault()
+    if (currentPage < npage) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  const ChangePage = (pageNumber, e) => {
+    // e.preventDefault()
+    setCurrentPage(pageNumber)
+  }
+
   return (
     <div className='container'>
       {/* displayed the list of events################################################# */}
@@ -93,7 +120,7 @@ const List = () => {
           </tr>
         </thead>
         <tbody>
-          {userdata.map((user) => {
+          {currentData.map((user) => {
             const startDate = moment(user.Date).format('YYYY-MM-DD')
             return (
               <tr key={user.id}>
@@ -130,9 +157,34 @@ const List = () => {
           })}
         </tbody>
       </table>
-      {/* ######################################################################################################### */}
+      <div>
+        <ul className='pagination'>
+          <li className='page-item'>
+            <a href='#' className='page-link' onClick={prePage}>
+              Prev
+            </a>
+          </li>
+          {number.map((n, i) => (
+            <li
+              className={`page-item ${currentPage === n ? 'active' : ''}`}
+              style={{ cursor: 'pointer' }}
+              key={i}
+            >
+              <a className='page-link' onClick={() => ChangePage(n)}>
+                {n}
+              </a>
+            </li>
+          ))}
+          <li className='page-item'>
+            <a href='' className='page-link' onClick={nextPage}>
+              Next
+            </a>
+          </li>
+        </ul>
+      </div>
 
-      {/* Delete Modal########################################################################## */}
+      {/* Delete Modal
+      ########################################################################## */}
       <Modal show={modalOpen} onHide={() => setModalOpen(!modalOpen)}>
         <Modal.Header closeButton>Your data will be deleted.</Modal.Header>
         <Modal.Body>

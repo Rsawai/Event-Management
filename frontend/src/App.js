@@ -8,7 +8,7 @@ import ProtectedRoute from './Components/ProtectedRoute'
 import About from './DashBoard Operations/AboutUs/ABout'
 import BookEvents from './DashBoard Operations/BookEvents/BookEvents'
 import FetchData from './DashBoard Operations/FetchData/FetchData'
-import View from './DashBoard Operations/View/View'
+import View from './DashBoard Operations/ViewData/View'
 import Edit from './DashBoard Operations/Edit/Edit'
 
 import EditProfile from './DashBoard Operations/EditProfile/EditProfile'

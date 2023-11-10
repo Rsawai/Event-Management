@@ -131,7 +131,8 @@ const View = () => {
       <Modal
         show={modalOpen}
         onHide={() => setModalOpen(!modalOpen)}
-        className=' modal-lg'
+        size='lg'
+        centered
       >
         <Modal.Header closeButton>
           <h3>Upcoming Events</h3>
@@ -148,7 +149,7 @@ const View = () => {
                   <th scope='col'>Event Venue</th>
                   <th scope='col'>Event Date</th>
                   <th scope='col'>Event Time</th>
-                  <th scope='col'>Action</th>
+                  <th scope='col'>Description</th>
                 </tr>
               </thead>
               <tbody>
